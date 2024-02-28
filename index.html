@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Табелатор</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="author" content="Galaksija Dizajn - Nemanja Ilincic">
+<meta name='robots' content='noindex, nofollow' />
+
+<style>
+body {
+background-color: #e5e5e5; 
+font-family: Arial, Helvetica, sans-serif;
+text-align: center;
+}
+
+#container {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#enter, #comma {
+max-width: 700px;
+width: 50vw;
+height: 70vh;
+}
+
+@media only screen and (max-width: 1280px) {
+    #container {grid-template-columns: auto;}
+    #enter, #comma {width: 100%; max-width: 100%;}
+}
+</style>
+</head>
+<body>
+<h1>Табелатор</h1>
+<p>Овај програм ће заменити "," са ";", a после сваког 11-ог ";" ће додати нови ред.</p>
+<div id="container">
+    <div class="left">
+        <h2>Унеси текст подељен у редове</h2>
+        <textarea id="enter" placeholder="Молимо унесите текст подељен у редове" onkeyup="main();"></textarea>
+    </div>
+
+    <div class="right">
+        <h2>.csv табела</h2>
+        <textarea id="comma" placeholder="Кликните овде да бисте видели текст одвојен зарезима"></textarea>
+        <p style="text-align: right; margin-right: 50px; margin-top:5px;"><a target="_blank" href="https://galaksijadizajn.rs/"><strong>galaksijadizajn.rs</strong></a></p>
+        <p style="text-align: right;">Ver: 1.2</p>
+    </div>
+</div>
+
+<a href="#" onclick="main();"><button> >>Замени<< </button></a>
+
+
+
+<script>
+function main() {
+let a = document.getElementById("enter").value;
+let result = a.replace(/ €/g, ";"); //Мења "," са ";" како се не би одвајали у различите категорије
+
+textArray = result.split(""); //Прави низ од текста
+let l = textArray.length;
+
+let j = 0;
+for (let i = 0; i<l; i++) { //Петља која пролази кроз читав низ
+    if (textArray[i] == "\n") { 
+        textArray[i] = ";";
+        j = j + 1; 
+    }
+    
+    if (j == 11) { 
+        textArray[i] = "\n";
+        j = 0; 
+    }
+}
+
+result = textArray.join(""); //Прави стринг од исправљеног низа
+document.getElementById("comma").value = result; //Исписује резултат
+}
+
+</script>
+</body>
+</html>
